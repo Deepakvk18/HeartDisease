@@ -4,6 +4,7 @@ from dash import Dash, dcc, html, Input, Output
 import dash_bootstrap_components as dbc
 
 app = Dash(external_stylesheets=[dbc.themes.SKETCHY])
+server = app.server
 
 app.layout = html.Div(
     className="container",
