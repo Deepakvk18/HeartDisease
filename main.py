@@ -229,4 +229,4 @@ def get_results(n_clicks, age, sex, cp, trestbps, chol, fbs, restecg, thalach, e
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
