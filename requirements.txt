@@ -1,0 +1,11 @@
+numpy
+pandas
+joblib
+matplotlib
+plotly
+seaborn
+scikit-learn
+dash
+dash-bootstrap-components
+category_encoders
+skops
