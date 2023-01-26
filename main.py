@@ -4,6 +4,7 @@ from dash import Dash, dcc, html, Input, Output, State
 import dash_bootstrap_components as dbc
 
 app = Dash(external_stylesheets=[dbc.themes.SKETCHY])
+server = app.server
 
 app.layout = html.Div(
     className="container",
@@ -228,7 +229,6 @@ def get_results(n_clicks, age, sex, cp, trestbps, chol, fbs, restecg, thalach, e
         return html.Div("Please Complete the form before submitting")
 
     return f"Probability of Heart Disease is: {prediction} %"
-
 
 if __name__ == "__main__":
     app.run_server()
