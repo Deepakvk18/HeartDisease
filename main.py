@@ -1,10 +1,9 @@
 import pickle
 import pandas as pd
-from dash import Dash, dcc, html, Input, Output
+from dash import Dash, dcc, html, Input, Output, State
 import dash_bootstrap_components as dbc
 
 app = Dash(external_stylesheets=[dbc.themes.SKETCHY])
-server = app.server
 
 app.layout = html.Div(
     className="container",
@@ -166,7 +165,8 @@ app.layout = html.Div(
                         className="form-control"
                     ),
                 ]),
-                dbc.Button("Get Result", id="submit-button", name="Diagnose", n_clicks=0, color="primary", className="me-1"),
+                dbc.Button("Get Result", id="submit-button", name="Diagnose", n_clicks=0,
+                           color="primary", className="me-1"),
             ]),
             dbc.Col([
                 html.Div(id="results", className="alert alert-success")
@@ -179,19 +179,19 @@ app.layout = html.Div(
 @app.callback(
     Output("results", "children"),
     Input("submit-button", "n_clicks"),
-    Input("age-ip", "value"),
-    Input("sex-ip", "value"),
-    Input("cp-ip", "value"),
-    Input("trestbps-ip", "value"),
-    Input("chol-ip", "value"),
-    Input("fbs-ip", "value"),
-    Input("restecg-ip", "value"),
-    Input("thalach-ip", "value"),
-    Input("exang-ip", "value"),
-    Input("oldpeak-ip", "value"),
-    Input("slope-ip", "value"),
-    Input("ca-ip", "value"),
-    Input("thal-ip", "value"),
+    State("age-ip", "value"),
+    State("sex-ip", "value"),
+    State("cp-ip", "value"),
+    State("trestbps-ip", "value"),
+    State("chol-ip", "value"),
+    State("fbs-ip", "value"),
+    State("restecg-ip", "value"),
+    State("thalach-ip", "value"),
+    State("exang-ip", "value"),
+    State("oldpeak-ip", "value"),
+    State("slope-ip", "value"),
+    State("ca-ip", "value"),
+    State("thal-ip", "value"),
 )
 def get_results(n_clicks, age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal):
     if n_clicks == 0:
@@ -223,7 +223,8 @@ def get_results(n_clicks, age, sex, cp, trestbps, chol, fbs, restecg, thalach, e
     )
     try:
         prediction = round(model.predict_proba(sample).flatten()[1] * 100, 2)
-    except:
+    except Exception as e:
+        print(str(e))
         return html.Div("Please Complete the form before submitting")
 
     return f"Probability of Heart Disease is: {prediction} %"
